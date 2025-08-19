@@ -22,6 +22,7 @@ endif()
 # Vulkan deps
 if(${SKITY_VK_BACKEND})
   target_include_directories(skity PRIVATE third_party/Vulkan-Headers/include)
+  target_include_directories(skity PRIVATE third_party/VulkanMemoryAllocator/include)
 endif()
 
 # OpenGL header file
@@ -34,12 +35,17 @@ if(${SKITY_VK_BACKEND})
   # set vulkan headers
   if (NOT ANDROID)
     # android can use system vulkan headers from NDK
-    set(VULKAN_HEADERS_INSTALL_DIR "third_party/Vulkan-Headers" CACHE PATH "Vulkan-Headers")
+    set(VULKAN_HEADERS_INSTALL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/Vulkan-Headers" CACHE PATH "Vulkan-Headers")
   endif()
 
   target_compile_definitions(skity PRIVATE VK_NO_PROTOTYPES=1)
   add_subdirectory(third_party/volk)
   target_link_libraries(skity PRIVATE volk::volk)
+  
+  # On macOS, we also need to add the VulkanSDK lib path if available
+  if(APPLE AND DEFINED ENV{VULKAN_SDK})
+    target_link_directories(skity PRIVATE $ENV{VULKAN_SDK}/lib)
+  endif()
 endif()
 
 # json parser

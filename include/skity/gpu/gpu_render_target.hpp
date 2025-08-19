@@ -42,7 +42,7 @@ class SKITY_API GPURenderTarget {
 
   uint32_t GetHeight() const;
 
-  Canvas* GetCanvas() { return recorder_.GetRecordingCanvas(); }
+  Canvas* GetCanvas() { return surface_->LockCanvas(false); }
 
  private:
   PictureRecorder recorder_;

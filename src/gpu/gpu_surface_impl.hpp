@@ -48,6 +48,8 @@ class GPUSurfaceImpl : public GPUSurface {
   virtual HWRootLayer* OnBeginNextFrame(bool clear) = 0;
 
   virtual void OnFlush() = 0;
+  
+  void FlushCanvas();
 
  private:
   uint32_t width_;

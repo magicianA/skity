@@ -90,17 +90,19 @@ bool HWPipeline::PipelineMatch(GPURenderPipeline *pipeline,
                                const HWPipelineDescriptor &desc) {
   const auto &gpu_desc = pipeline->GetDescriptor();
 
+
   if (gpu_desc.depth_stencil != desc.depth_stencil) {
     return false;
   }
 
   auto blend_function = get_gpu_blending(desc.blend_mode);
 
-  return gpu_desc.target.write_mask == desc.color_mask &&
+  bool matches = gpu_desc.target.write_mask == desc.color_mask &&
          gpu_desc.target.src_blend_factor == blend_function.first &&
          gpu_desc.target.dst_blend_factor == blend_function.second &&
          gpu_desc.sample_count == static_cast<int32_t>(desc.sample_count) &&
          gpu_desc.target.format == desc.color_format;
+  return matches;
 }
 
 GPURenderPipeline *HWPipelineLib::GetPipeline(

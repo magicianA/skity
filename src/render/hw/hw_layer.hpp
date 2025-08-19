@@ -100,9 +100,10 @@ class HWLayer : public HWDraw {
   HWDrawState GetLayerDrawState() const { return layer_state_; }
 
   GPUViewport GetViewport() const {
-    return GPUViewport{
-        0, 0, static_cast<float>(GetWidth()), static_cast<float>(GetHeight()),
-        0, 1};
+    float width = static_cast<float>(GetWidth());
+    float height = static_cast<float>(GetHeight());
+    
+    return GPUViewport{0, 0, width, height, 0, 1};
   }
 
   std::shared_ptr<Shader> CreateDrawLayerShader(

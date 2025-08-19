@@ -13,6 +13,7 @@
 
 #include "src/effect/image_filter_base.hpp"
 #include "src/gpu/gpu_surface_impl.hpp"
+#include "src/logging.hpp"
 #include "src/render/canvas_state.hpp"
 #include "src/render/hw/draw/hw_dynamic_path_clip.hpp"
 #include "src/render/hw/draw/hw_dynamic_path_draw.hpp"
@@ -502,9 +503,12 @@ void HWCanvas::OnFlush() {
     draw_context.pipelineLib = pipeline_lib_;
     draw_context.gpuContext = surface_->GetGPUContext();
     draw_context.pool = &pool;
+    // Create orthographic projection matrix
+    // For Vulkan, flip Y axis since Vulkan has Y down, OpenGL has Y up
+    auto gpu_context = surface_->GetGPUContext();
+    auto bounds = root_layer_->GetBounds();
     draw_context.mvp = FromGLM(glm::ortho(
-        root_layer_->GetBounds().Left(), root_layer_->GetBounds().Right(),
-        root_layer_->GetBounds().Bottom(), root_layer_->GetBounds().Top()));
+        bounds.Left(), bounds.Right(), bounds.Bottom(), bounds.Top()));
     draw_context.vertex_vector_cache = vertex_vector_cache_.get();
     draw_context.index_vector_cache = index_vector_cache_.get();
     draw_context.total_clip_depth = root_layer_->GetState()->GetDrawDepth() + 1;

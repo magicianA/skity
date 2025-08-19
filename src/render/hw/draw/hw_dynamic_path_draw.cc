@@ -24,7 +24,8 @@ HWDynamicPathDraw::HWDynamicPathDraw(Matrix transform, Path path, Paint paint,
     : HWDynamicDraw(transform, paint.GetBlendMode()),
       path_(std::move(path)),
       paint_(std::move(paint)),
-      is_stroke_(is_stroke) {}
+      is_stroke_(is_stroke) {
+}
 
 void HWDynamicPathDraw::OnGenerateDrawStep(ArrayList<HWDrawStep *, 2> &steps,
                                            HWDrawContext *context) {

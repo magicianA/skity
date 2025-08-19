@@ -4,6 +4,8 @@
 
 #include "case/basic/example.hpp"
 #include "common/app.hpp"
+#include "skity/graphic/color.hpp"
+#include <iostream>
 
 class BasicExampleCase : public skity::example::WindowClient {
  public:
@@ -12,8 +14,8 @@ class BasicExampleCase : public skity::example::WindowClient {
   ~BasicExampleCase() override = default;
 
   void OnDraw(skity::GPUContext*, skity::Canvas* canvas) override {
-    canvas->DrawColor(skity::Color_WHITE);
-
+    canvas->DrawColor(skity::Color_WHITE);  // Re-enable white background to test stencil
+//
     skity::example::basic::draw_canvas(canvas);
   }
 };

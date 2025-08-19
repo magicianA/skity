@@ -19,12 +19,13 @@ void UploadBindGroup(const wgx::BindGroupEntry* entry, Command* cmd,
   auto allocation =
       ctx->stageBuffer->Allocate(entry->type_definition->size, true);
   entry->type_definition->WriteToBuffer(allocation.addr, 0);
+  auto* gpu_buffer = ctx->stageBuffer->GetGPUBuffer();
   cmd->uniform_bindings.emplace_back(UniformBinding{
       ToShaderStage(entry->stage),
       entry->index,
       entry->name,
       GPUBufferView{
-          ctx->stageBuffer->GetGPUBuffer(),
+          gpu_buffer,
           allocation.offset,
           allocation.size,
       },

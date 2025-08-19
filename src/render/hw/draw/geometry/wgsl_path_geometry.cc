@@ -22,7 +22,7 @@ std::vector<GPUVertexBufferLayout> InitVertexBufferLayout(bool aa) {
           GPUVertexStepMode::kVertex,
           {
               GPUVertexAttribute{
-                  GPUVertexFormat::kFloat32x2,
+                  GPUVertexFormat::kFloat32x3,  // FIXED: Should be vec3 not vec2!
                   0,
                   0,
               },

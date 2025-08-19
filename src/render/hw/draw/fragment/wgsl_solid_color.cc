@@ -79,7 +79,6 @@ const char* WGSLSolidColor::GetEntryPoint() const { return "fs_main"; }
 
 void WGSLSolidColor::PrepareCMD(Command* cmd, HWDrawContext* context) {
   SKITY_TRACE_EVENT(WGSLSolidColor_PrepareCMD);
-
   if (cmd == nullptr || cmd->pipeline == nullptr) {
     return;
   }

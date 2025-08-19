@@ -217,7 +217,7 @@ void draw_even_odd_fill(skity::Canvas* canvas) {
   canvas->Restore();
 }
 
-void draw_canvas(skity::Canvas* canvas) {
+void draw_canvas(skity::Canvas* canvas) {  
   draw_basic_example(canvas);
 
   canvas->Save();

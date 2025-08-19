@@ -26,6 +26,7 @@ add_executable(skity_unit_test
     text/text_test.cc
     utils/arena_allocator_test.cc
     utils/array_list_test.cc
+    gpu/gpu_device_vk_test.cc
 )
 
 target_include_directories(skity_unit_test
